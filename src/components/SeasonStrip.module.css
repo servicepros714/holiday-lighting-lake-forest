@@ -1,0 +1,41 @@
+.wrap {
+  background: linear-gradient(180deg, var(--pine-800), var(--pine-700));
+  color: var(--ivory);
+  border-top: 1px solid rgba(253,199,54,.25);
+  border-bottom: 3px solid var(--gold);
+}
+.inner { padding-top: 40px; padding-bottom: 76px; }
+.lead { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 22px; }
+.count {
+  font-family: var(--font-display); font-weight: 700; font-size: 84px; line-height: .9; color: var(--gold);
+  text-shadow: 0 0 30px rgba(253,199,54,.5); font-variant-numeric: tabular-nums;
+}
+.title { font-size: 26px; font-weight: 600; }
+.note { color: rgba(251,246,230,.75); font-size: 15px; margin-top: 4px; max-width: 560px; }
+.track { position: relative; margin-top: 38px; margin-left: 10px; margin-right: 10px; }
+.rail { height: 8px; border-radius: 99px; background: rgba(251,246,230,.15); overflow: hidden; }
+.fill { height: 100%; background: linear-gradient(90deg, var(--berry), var(--gold)); box-shadow: var(--glow); border-radius: 99px; }
+.today { position: absolute; top: -30px; transform: translateX(-50%); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-pale); }
+.today::after { content: ''; display: block; width: 2px; height: 22px; background: var(--gold-pale); margin: 2px auto 0; }
+.mark { position: absolute; top: -5px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; text-align: center; width: 140px; }
+.first { transform: translateX(-9px); align-items: flex-start; text-align: left; }
+.last { transform: translateX(calc(-100% + 9px)); align-items: flex-end; text-align: right; }
+.pin { width: 18px; height: 18px; border-radius: 50%; background: var(--pine-900); border: 3px solid var(--gold); }
+.mLabel { margin-top: 8px; font-weight: 800; font-size: 14px; }
+.mText { font-size: 12.5px; color: rgba(251,246,230,.7); }
+
+@media (max-width: 860px) {
+  .inner { padding-top: 30px; padding-bottom: 30px; }
+  .lead { grid-template-columns: auto 1fr; }
+  .cta { grid-column: 1 / -1; }
+  .count { font-size: 64px; }
+  .title { font-size: 21px; }
+  /* timeline turns vertical on phones so labels never collide */
+  .track { margin: 26px 0 0; padding-left: 26px; }
+  .rail { position: absolute; left: 6px; top: 6px; bottom: 6px; width: 6px; height: auto; }
+  .fill { width: 100% !important; height: var(--pct); }
+  .today { display: none; }
+  .mark, .first, .last { position: relative; left: auto !important; top: auto; transform: none; align-items: baseline; width: auto; flex-direction: row; align-items: baseline; gap: 10px; text-align: left; padding: 7px 0; }
+  .pin { position: absolute; left: -27px; top: 9px; width: 16px; height: 16px; }
+  .mLabel { margin: 0; min-width: 70px; }
+}

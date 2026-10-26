@@ -1,0 +1,15 @@
+.bar { background: var(--pine-900); color: var(--ivory); border-bottom: 3px solid var(--gold); }
+.inner { display: grid; grid-template-columns: 1fr auto 1fr; grid-template-areas: 'back logo phone'; align-items: center; height: 76px; }
+.back { grid-area: back; justify-self: start; text-decoration: none; font-weight: 700; font-size: 14px; color: rgba(251,246,230,.8); }
+.back:hover { color: var(--gold); }
+.logo { grid-area: logo; display: block; }
+.logo img { width: 64px; height: 64px; }
+.phone { grid-area: phone; justify-self: end; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 800; color: var(--gold); }
+@media (max-width: 600px) {
+  .inner { height: 64px; }
+  .logo img { width: 52px; height: 52px; }
+  .backText { display: none; }
+  .back { font-size: 22px; padding: 6px 10px 6px 0; }
+  .phoneText { display: none; }
+  .phone { width: 44px; height: 44px; justify-content: center; border-radius: 50%; border: 1px solid var(--line-dark); }
+}

@@ -1,0 +1,17 @@
+.wrap { background: var(--ivory); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.btn { margin-top: 24px; }
+.ornaments { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 16px 12px; justify-content: center; }
+.orn {
+  position: relative; padding: 12px 20px; border-radius: 999px; font-weight: 800; font-size: 15px;
+  background: #fff; color: var(--pine-800); border: 2px solid var(--line);
+  box-shadow: 0 8px 20px -14px rgba(1,56,11,.6);
+}
+.cap { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 14px; height: 9px; border-radius: 3px 3px 1px 1px; background: linear-gradient(var(--gold-pale), var(--amber)); }
+.home { background: var(--berry); color: #fff; border-color: var(--berry); box-shadow: 0 0 0 4px rgba(175,0,1,.15), 0 10px 26px -10px rgba(175,0,1,.8); }
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; gap: 30px; }
+  .ornaments { justify-content: flex-start; }
+  .orn { font-size: 14px; padding: 10px 16px; }
+  .btn { width: 100%; white-space: normal; text-align: center; }
+}
