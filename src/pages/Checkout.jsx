@@ -27,8 +27,8 @@ const appearance = {
 };
 
 function isComplete(b) {
-  return b.packageId && b.stories && b.date && b.windowId && b.name.trim().length > 1 &&
-    phoneDigits(b.phone).length === 10 && validEmail(b.email) && b.address.trim().length > 5;
+  return b.packageId && b.lightType && b.name.trim().length > 1 &&
+    phoneDigits(b.phone).length === 10 && b.address.trim().length > 5;
 }
 
 /* ── Payment form (inside <Elements>) ── */
@@ -66,8 +66,7 @@ function PayForm({ booking, clientSecret, piId, onPaid, busy, setBusy }) {
       clientSecret, // passed explicitly: required for Express Checkout + avoids the stale-secret bug
       confirmParams: {
         return_url: returnUrl,
-        receipt_email: booking.email.trim(),
-        payment_method_data: { billing_details: { name: booking.name.trim(), email: booking.email.trim(), phone: phoneDigits(booking.phone) } },
+        payment_method_data: { billing_details: { name: booking.name.trim(), phone: phoneDigits(booking.phone) } },
       },
       redirect: 'if_required',
     });
@@ -172,8 +171,8 @@ export default function Checkout() {
             <li className={s.crumbNow} aria-current="step">Checkout</li>
             <li>Confirmed</li>
           </ol>
-          <h1 className={s.h1}>Reserve your install date</h1>
-          <p className={s.sub}>A {money(DEPOSIT_DOLLARS)} reservation deposit locks in your date. It's applied to your final invoice.</p>
+          <h1 className={s.h1}>Reserve your install</h1>
+          <p className={s.sub}>A {money(DEPOSIT_DOLLARS)} reservation deposit holds your spot. We'll call to schedule your install date, and the deposit is applied to your final invoice.</p>
         </header>
 
         <div className={s.grid}>
@@ -210,12 +209,10 @@ export default function Checkout() {
             </div>
             <dl className={s.list}>
               <div><dt>Package</dt><dd>{pkg && pkg.name}</dd></div>
-              <div><dt>Home</dt><dd>{homeSummary(booking)}</dd></div>
-              <div><dt>Install date</dt><dd>{prettyDate(booking.date)}</dd></div>
-              <div><dt>Time window</dt><dd>{win && win.label}</dd></div>
+              <div><dt>Lights</dt><dd>{homeSummary(booking)}</dd></div>
+              <div><dt>Install date</dt><dd>We'll call to schedule</dd></div>
               <div><dt>Name</dt><dd>{booking.name}</dd></div>
               <div><dt>Phone</dt><dd>{booking.phone}</dd></div>
-              <div><dt>Email</dt><dd className={s.break}>{booking.email}</dd></div>
               <div><dt>Address</dt><dd>{booking.address}</dd></div>
             </dl>
             <div className={s.totals}>

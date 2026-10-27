@@ -2,7 +2,7 @@
 .head { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: end; margin-bottom: 34px; }
 .stage { display: grid; grid-template-columns: 1.6fr .7fr; gap: 28px; align-items: start; }
 .frame {
-  position: relative; aspect-ratio: 16 / 10; border-radius: 26px; overflow: hidden;
+  position: relative; aspect-ratio: 7 / 5; border-radius: 26px; overflow: hidden;
   box-shadow: var(--shadow); background: var(--pine-900);
   cursor: ew-resize; touch-action: pan-y; user-select: none; -webkit-user-select: none;
   border: 6px solid #fff;
@@ -15,7 +15,7 @@
 }
 .chipL { left: 14px; background: rgba(255,255,255,.9); color: var(--pine-800); }
 .chipR { right: 14px; background: rgba(1,26,6,.85); color: var(--gold); }
-.sample { position: absolute; bottom: 12px; right: 14px; font-size: 11px; font-weight: 700; color: rgba(251,246,230,.75); background: rgba(0,0,0,.35); padding: 3px 9px; border-radius: 999px; pointer-events: none; }
+.sample { position: absolute; bottom: 12px; left: 14px; font-size: 11px; font-weight: 700; color: rgba(251,246,230,.75); background: rgba(0,0,0,.35); padding: 3px 9px; border-radius: 999px; pointer-events: none; }
 .handle { position: absolute; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: var(--gold); box-shadow: 0 0 14px rgba(253,199,54,.9); pointer-events: none; }
 .knob {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -37,12 +37,14 @@
 .thumb svg, .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .thumb:hover { transform: translateY(-2px); }
 .thumbOn { border-color: var(--berry); }
+.thumbLabel { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 6px 5px; font-size: 11.5px; font-weight: 800; color: #fff; text-align: center; background: linear-gradient(transparent, rgba(0,0,0,.75)); }
+.static { cursor: default; }
 .thumb:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
 
 @media (max-width: 900px) {
   .head { grid-template-columns: 1fr; gap: 10px; margin-bottom: 22px; }
   .stage { grid-template-columns: 1fr; gap: 18px; }
-  .frame { aspect-ratio: 4 / 3; border-width: 4px; border-radius: 20px; }
+  .frame { aspect-ratio: 7 / 5; border-width: 4px; border-radius: 20px; }
   .sTitle { font-size: 24px; }
   .thumbs { margin-top: 14px; }
 }

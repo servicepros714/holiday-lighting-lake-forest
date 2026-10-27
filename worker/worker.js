@@ -83,6 +83,7 @@ function season(now = Date.now()) {
 }
 
 function slotError(date, time, now = Date.now()) {
+  if (!date && !time) return null; // booked without a date: scheduled later by phone
   if (!DATE_RE.test(String(date || ''))) return 'Please choose an install date.';
   if (!(time in TIME_WINDOWS)) return 'Please choose a valid time window.';
   const { start, end } = season(now);
@@ -123,6 +124,7 @@ async function readJson(request) {
 }
 
 async function bookedCount(env, date, time) {
+  if (!date) return 0; // unscheduled bookings never use up a slot
   const row = await env.DB.prepare(
     `SELECT COUNT(*) AS n FROM ${TABLE} WHERE source = ? AND date = ? AND time = ? AND (status IS NULL OR LOWER(status) NOT IN ('cancelled','canceled'))`,
   ).bind(SOURCE, date, time).first();
@@ -158,7 +160,7 @@ function validateCustomer(body) {
   if (!SERVICES.includes(service)) return { error: 'Please choose a package.' };
   if (name.length < 2) return { error: 'Please enter your Full Name.' };
   if (phone.length !== 10) return { error: 'Please enter a valid Phone number.' };
-  if (!isEmail(email)) return { error: 'Please enter a valid Email.' };
+  if (email && !isEmail(email)) return { error: 'Please enter a valid Email.' };
   if (address.length < 6) return { error: 'Please enter your Service Address.' };
   return { name, phone, email, address, service, vehicle: clean(body.vehicle, 200) };
 }
@@ -206,7 +208,7 @@ async function createPaymentIntent(request, env, cors) {
       currency: CURRENCY,
       'automatic_payment_methods[enabled]': 'true',
       description: `Install reservation deposit · ${c.service} · ${body.date} ${body.time}`,
-      receipt_email: c.email,
+      ...(c.email ? { receipt_email: c.email } : {}),
       'metadata[source]': SOURCE,
       'metadata[date]': body.date,
       'metadata[time]': body.time,
@@ -263,7 +265,7 @@ async function createBooking(request, env, cors) {
   const addons = Array.isArray(body.addons) ? body.addons.map((a) => clean(a, 60)).filter(Boolean).slice(0, 10) : [];
   const est = Number.isFinite(Number(body.estimate)) && body.estimate !== null ? `$${Math.round(Number(body.estimate))}+` : 'at visit';
   const notes = [
-    addons.length ? `Add-ons: ${addons.join(', ')}` : 'Add-ons: none',
+    clean(body.details, 1000) ? `Details: ${clean(body.details, 1000)}` : '',
     `Est. starting price: ${est}`,
     paymentStatus === 'Paid' ? `Deposit $${DEPOSIT_CENTS / 100} paid (${piId})` : 'Deposit: pay at visit',
     overCapacity ? 'WARNING: slot was already full when this paid booking arrived' : '',

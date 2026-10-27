@@ -1,6 +1,6 @@
 # Holiday Christmas Lighting · Lake Forest
 
-Vite + React site with a 5-step booking calendar, Stripe deposit checkout, and a Cloudflare Worker + D1 backend.
+Vite + React site with a 3-step booking form (Permanent/Seasonal → Front Only/Front & Sides → contact info), Stripe deposit checkout, and a Cloudflare Worker + D1 backend. Install dates are scheduled by phone after booking.
 
 | | |
 |---|---|
@@ -21,7 +21,7 @@ All in **`src/data/business.js`** unless noted:
 - [ ] `REVIEWS` / `RATING` — **real** reviews only (section shows a neutral message while empty)
 - [ ] `BUSINESS.googleReviewUrl` — GBP review link
 - [ ] `SERVICE_AREA` — confirm the city list (also update `areaServed` in `index.html`)
-- [ ] `src/components/Gallery.jsx` — add real day + night install photos (illustrations are placeholders, labeled "Sample illustration")
+- [ ] `src/components/Gallery.jsx` — photos are in `public/images/gallery/`. Each has `preview: true` (shows a "Design preview" tag); set to `false` for photos of your own real installs. Red & white photos carry an MLS watermark; Multi-color has no matching day photo yet
 - [ ] Custom domain: replace `holiday-lighting-lake-forest.pages.dev` in `index.html` (canonical, OG, JSON-LD), `BUSINESS.siteUrl`, and `DEFAULT_ORIGINS` in `worker/worker.js`
 
 If you change the season dates, time windows, 48-hour lead time or the $149 deposit, change them in **both** `src/data/business.js` and the top of `worker/worker.js`.
@@ -104,10 +104,10 @@ The Worker also creates the table/index on first use, but it never lets that ste
 | Column | Example |
 |---|---|
 | `id` | `HCL-7K3F9Q` |
-| `date` / `time` | `2026-11-12` / `12PM–4PM` |
+| `date` / `time` | blank at booking — set from the admin dashboard after you call to schedule |
 | `service` | `Front & Sides` |
-| `vehicle` | `2-Story · Front & Sides · +Wreaths, +Pathway` |
-| `notes` | `Add-ons: … \| Est. starting price: … \| Deposit $149 paid (pi_…)` |
+| `vehicle` | `Permanent Lights · Front & Sides` |
+| `notes` | `Details: … \| Est. starting price: … \| Deposit $149 paid (pi_…)` |
 | `source` | `hcl-lakeforest` |
 | `status` | `Booked` |
 | `payment_status` | `Paid` or `Pay Later` |

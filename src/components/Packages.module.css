@@ -19,7 +19,7 @@
 
 .panel {
   margin-top: 28px;
-  display: grid; grid-template-columns: 1.2fr .8fr;
+  display: grid; grid-template-columns: 1fr;
   border-radius: 28px; overflow: hidden;
   box-shadow: var(--shadow);
   animation: panelIn .45s ease;

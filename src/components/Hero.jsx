@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BUSINESS, PACKAGES, DEPOSIT_DOLLARS, money } from '../data/business.js';
+import { BUSINESS, PACKAGES, LIGHT_TYPES, DEPOSIT_DOLLARS, money } from '../data/business.js';
 import { earliestSlot, prettyDate, seasonRange } from '../lib/schedule.js';
 import { loadBooking, saveBooking } from '../lib/booking.js';
 import HeroSkyline from './HeroSkyline.jsx';
@@ -23,13 +23,13 @@ function firstOpenDate() {
 export default function Hero() {
   const nav = useNavigate();
   const [pkg, setPkg] = useState('front-sides');
-  const [stories, setStories] = useState('1');
+  const [lightType, setLightType] = useState('seasonal');
   const first = firstOpenDate();
 
   const go = (e) => {
     e.preventDefault();
     const b = loadBooking();
-    saveBooking({ ...b, packageId: pkg, stories });
+    saveBooking({ ...b, packageId: pkg, lightType });
     nav('/book');
   };
 
@@ -78,18 +78,18 @@ export default function Hero() {
                   <span className={s.optName}>{p.name}</span>
                   <span className={s.optSub}>{p.tagline}</span>
                 </span>
-                <span className={s.optPrice}>{p.startingAt != null ? `from ${money(p.startingAt)}` : 'Priced at visit'}</span>
+                <span className={s.optPrice}>{p.startingAt != null ? `from ${money(p.startingAt)}` : 'Online quoting'}</span>
               </label>
             ))}
           </fieldset>
 
           <fieldset className={s.fs}>
-            <legend className={s.legend}>Home</legend>
+            <legend className={s.legend}>Lights</legend>
             <div className={s.toggle}>
-              {[['1', '1-Story'], ['2', '2-Story']].map(([v, l]) => (
-                <label key={v} className={`${s.tog} ${stories === v ? s.togOn : ''}`}>
-                  <input type="radio" name="hero-stories" value={v} checked={stories === v} onChange={() => setStories(v)} />
-                  {l}
+              {LIGHT_TYPES.map((l) => (
+                <label key={l.id} className={`${s.tog} ${lightType === l.id ? s.togOn : ''}`}>
+                  <input type="radio" name="hero-light" value={l.id} checked={lightType === l.id} onChange={() => setLightType(l.id)} />
+                  {l.id === 'permanent' ? 'Permanent' : 'Seasonal'}
                 </label>
               ))}
             </div>

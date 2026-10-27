@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PACKAGES, ADDONS, money } from '../data/business.js';
+import { PACKAGES, money } from '../data/business.js';
 import { loadBooking, saveBooking } from '../lib/booking.js';
 import { Reveal } from '../lib/useInView.jsx';
 import s from './Packages.module.css';
@@ -48,7 +48,7 @@ export default function Packages() {
               onKeyDown={(e) => onKey(e, i)}
             >
               <span className={s.tabName}>{p.name}</span>
-              <span className={s.tabPrice}>{p.startingAt != null ? `starting at ${money(p.startingAt)}` : 'priced at your visit'}</span>
+              <span className={s.tabPrice}>{p.startingAt != null ? `starting at ${money(p.startingAt)}` : 'Online quoting'}</span>
             </button>
           ))}
         </div>
@@ -60,31 +60,13 @@ export default function Packages() {
             <p className={s.price}>
               {pkg.startingAt != null
                 ? <>Starting at <span className={s.amount}>{money(pkg.startingAt)}</span></>
-                : <span className={s.amount}>Priced at your on-site visit</span>}
+                : <span className={s.amount}>Online quoting</span>}
             </p>
             <ul className={s.features}>
               {pkg.features.map((f) => <li key={f}>{f}</li>)}
             </ul>
           </div>
 
-          <div className={s.side}>
-            <h4 className={s.sideTitle}>Optional add-ons</h4>
-            <p className={s.sideNote}>Choose these in step 2 of booking.</p>
-            <table className={s.table}>
-              <tbody>
-                <tr>
-                  <th scope="row">Two-story home</th>
-                  <td>+50% of package</td>
-                </tr>
-                {ADDONS.map((a) => (
-                  <tr key={a.id}>
-                    <th scope="row">{a.name}</th>
-                    <td>{a.price != null ? `${a.flat ? '' : '+'}${money(a.price)}` : 'Quoted at visit'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>
 
         <div className={s.foot}>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BUSINESS, DEPOSIT_DOLLARS, money } from '../data/business.js';
+import { BUSINESS } from '../data/business.js';
 import s from './FAQ.module.css';
 
 const FAQS = [
@@ -10,7 +10,7 @@ const FAQS = [
   },
   {
     q: 'Do I buy the lights or lease them?',
-    a: 'Our packages are leased. We supply commercial-grade LEDs, maintain them through the season, and take them back after the holidays, so there is nothing to buy or store. Already own lights? Choose the "Install customer-owned lights" add-on.',
+    a: 'Our packages are leased. We supply commercial-grade LEDs, maintain them through the season, and take them back after the holidays, so there is nothing to buy or store. Already own lights? Let us know when we confirm your appointment.',
   },
   {
     q: 'Will my lights be on a timer?',
@@ -23,10 +23,6 @@ const FAQS = [
   {
     q: 'When do you take the lights down?',
     a: 'After the holidays. We contact you in the new year to set a takedown date that works for you, then remove everything and haul it away.',
-  },
-  {
-    q: `What is the ${money(DEPOSIT_DOLLARS)} deposit for?`,
-    a: `The ${money(DEPOSIT_DOLLARS)} reservation deposit holds your install date and is applied to your final invoice. Prefer to pay later? Choose "I'll pay at the visit" at checkout.`,
   },
   {
     q: 'Is the price on the website my final price?',

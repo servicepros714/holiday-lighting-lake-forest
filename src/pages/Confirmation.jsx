@@ -81,21 +81,19 @@ export default function Confirmation() {
 
         <dl className={s.list}>
           <div><dt>Package</dt><dd>{pkg && pkg.name}</dd></div>
-          <div><dt>Home</dt><dd>{homeSummary(b)}</dd></div>
-          <div><dt>Date</dt><dd>{prettyDate(b.date)}</dd></div>
-          <div><dt>Arrival window</dt><dd>{w && w.label}</dd></div>
+          <div><dt>Lights</dt><dd>{homeSummary(b)}</dd></div>
+          <div><dt>Install date</dt><dd>We'll call to schedule</dd></div>
           <div><dt>Address</dt><dd>{b.address}</dd></div>
         </dl>
 
         <h2 className={s.h2}>What happens next</h2>
         <ol className={s.next}>
-          <li>We'll reach out to confirm your appointment and answer any questions.</li>
+          <li>We'll call you to schedule your install date and answer any questions.</li>
           <li>On install day we walk your home, confirm power and design, and confirm your final price.</li>
           <li>{paid ? `Your ${money(DEPOSIT_DOLLARS)} deposit is applied to your final invoice.` : 'You can pay at the visit.'}</li>
         </ol>
 
         <div className={s.ctas}>
-          <a className="btn btn-pine" href={icsHref(b, snap.id)} download={`install-${snap.id}.ics`}>Add to Calendar</a>
           <a className="btn btn-ghost-dark" href={BUSINESS.phoneHref}>Call {BUSINESS.phoneDisplay}</a>
         </div>
         <p className={s.home}><Link to="/">Back to home</Link></p>

@@ -27,6 +27,7 @@ export const PACKAGES = [
     id: 'front',
     name: 'Front Only',
     tagline: 'The classic curb-appeal glow',
+    coverage: 'The roofline facing the street.',
     startingAt: null, // TODO
     features: [
       'Professional design for the front of the home',
@@ -41,6 +42,7 @@ export const PACKAGES = [
     id: 'front-sides',
     name: 'Front & Sides',
     tagline: 'Wrap-around glow from every angle',
+    coverage: 'Roofline plus the side edges for a full outline.',
     startingAt: null, // TODO
     features: [
       'Everything in Front Only',
@@ -58,6 +60,12 @@ export const ADDONS = [
   { id: 'pathway', name: 'Pathway / stake lights', short: 'Pathway', price: null },
   { id: 'owned', name: 'Install customer-owned lights', short: 'Own Lights', price: null, flat: true },
   { id: 'storage', name: 'Off-season storage', short: 'Storage', price: null },
+];
+
+// ── Booking step 2: type of lights ─────────────────────────
+export const LIGHT_TYPES = [
+  { id: 'permanent', name: 'Permanent lights', short: 'Permanent Lights', desc: 'Installed once and left up year-round, ready for any holiday.' },
+  { id: 'seasonal', name: 'Seasonal lights', short: 'Seasonal Lights', desc: 'Hung for the holidays and taken down after the season.' },
 ];
 
 export const TWO_STORY_MULTIPLIER = 1.5; // Two-story home: +50% of package price

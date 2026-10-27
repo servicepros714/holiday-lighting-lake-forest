@@ -1,17 +1,17 @@
-import { PACKAGES, ADDONS, TWO_STORY_MULTIPLIER, TIME_WINDOWS, money } from '../data/business.js';
+import { PACKAGES, LIGHT_TYPES, TIME_WINDOWS, money } from '../data/business.js';
 
-const KEY = 'hcl_booking_v1';
+const KEY = 'hcl_booking_v2';
 
 export const emptyBooking = {
   packageId: '',
-  stories: '',
-  addons: [],
+  lightType: '',
   date: '',
   windowId: '',
   name: '',
   phone: '',
   email: '',
   address: '',
+  details: '',
 };
 
 export function loadBooking() {
@@ -32,26 +32,19 @@ export function clearBooking() {
 export const pkgOf = (b) => PACKAGES.find((p) => p.id === b.packageId);
 export const windowOf = (b) => TIME_WINDOWS.find((w) => w.id === b.windowId);
 
-/** "2-Story · Front & Sides · +Wreaths, +Pathway" → stored in the shared `vehicle` column. */
+export const lightTypeOf = (b) => LIGHT_TYPES.find((l) => l.id === b.lightType);
+
+/** "Permanent Lights · Front & Sides" → stored in the shared `vehicle` column. */
 export function homeSummary(b) {
   const pkg = pkgOf(b);
-  const parts = [b.stories === '2' ? '2-Story' : '1-Story', pkg ? pkg.name : ''];
-  const add = ADDONS.filter((a) => b.addons.includes(a.id)).map((a) => '+' + a.short);
-  if (add.length) parts.push(add.join(', '));
-  return parts.filter(Boolean).join(' · ');
+  const lt = lightTypeOf(b);
+  return [lt ? lt.short : '', pkg ? pkg.name : ''].filter(Boolean).join(' · ');
 }
 
-/** Estimated starting total, or null when any needed price is still unset. */
+/** Starting price of the chosen package, or null when it isn't set yet. */
 export function estimate(b) {
   const pkg = pkgOf(b);
-  if (!pkg || pkg.startingAt == null) return null;
-  let total = pkg.startingAt * (b.stories === '2' ? TWO_STORY_MULTIPLIER : 1);
-  for (const a of ADDONS) {
-    if (!b.addons.includes(a.id)) continue;
-    if (a.price == null) return null;
-    total += a.price;
-  }
-  return Math.round(total);
+  return pkg && pkg.startingAt != null ? Math.round(pkg.startingAt) : null;
 }
 
 export const estimateLabel = (b) => {
